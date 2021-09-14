@@ -7,6 +7,10 @@
 
 #include <string>
 #include "Chunk.h"
+#include <fmt/format.h>
+#include <sstream>
+
+#define OUT
 
 // TODO find a better name for this
 typedef struct {
@@ -15,13 +19,13 @@ typedef struct {
 } DisassembledInstruction;
 
 // TODO how do I do this?
-std::string disassembleChunk(Chunk& c, const std::string& name);
-DisassembledInstruction disassembleInstruction(Chunk& c, int offset);
+std::string disassembleChunk(Chunk &c, const std::string &name);
+int disassembleInstruction(Chunk &c, int offset, OUT std::stringstream &ss);
 
-DisassembledInstruction simpleInstruction(const std::string& name, int offset);
-DisassembledInstruction constantInstruction(const std::string& name, Chunk& c, int offset);
+int simpleInstruction(const std::string &name, int offset, OUT std::stringstream& ss);
+int constantInstruction(const std::string &name, Chunk &c, int offset, OUT std::stringstream& ss);
 
-inline DisassembledInstruction unkownInstruction(uint8_t instruction, int offset);
+inline int unkownInstruction(uint8_t instruction, int offset, OUT std::stringstream& ss);
 
 std::string printValue(Value &d);
 
